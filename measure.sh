@@ -30,10 +30,12 @@ function measure {
 											 --depth=1 \
 											 --massif-out-file="$SITE/$i-.out%p" \
 											 ./Minimal ${FILEPATH}
-	done
-
-	for i in {1..10}; do
-		~/Work/Qt/MemoryScript/parse-logs.py $SITE/$i-* >> $SITE.txt
+				if [[ $? -ne 0 ]]; then
+				    i = i - 1
+				    echo "Error occurred in measure number: " $i "Error code: " $? >> $SITE.txt
+				else
+				    ~/Work/Qt/MemoryScript/parse-logs.py $SITE/$i-* >> $SITE.txt
+				fi
 	done
 }
 

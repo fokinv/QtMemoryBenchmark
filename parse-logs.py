@@ -380,7 +380,7 @@ def print_result_verbosity_2(chosen_snapshots, output_list):
                 continue
 
 
-"""def validate_output_files(output_list):
+def validate_output_files(output_list):
     start_time = sys.maxint
     end_time = 0
     run_length = 0
@@ -395,7 +395,7 @@ def print_result_verbosity_2(chosen_snapshots, output_list):
             end_time = time.end
     longest_time = (float(end_time) - start_time) / 1000000
     if not run_length <= longest_time + 1 or not run_length >= longest_time - 1:
-        raise IOError("The log files are not from one measurement!")"""
+        raise IOError("The log files are not from one measurement!")
 
 
 def main():
@@ -408,10 +408,10 @@ def main():
         for i in range(1, len(sys.argv)):
             file_name = sys.argv[i]
             output_list.append(MassifOutput(file_name))
-        # validate_output_files(output_list)
+        validate_output_files(output_list)
         result_generator = ResultGenerator(output_list)
         chosen_snapshots = result_generator.get_chosen_snapshots()
-        print_result_verbosity_1(chosen_snapshots)
+        print_result_verbosity_2(chosen_snapshots, output_list)
     except IOError as err:
         sys.stderr.write("ERROR with the files: %s\n" % str(err))
         exit(1)
